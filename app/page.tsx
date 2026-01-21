@@ -61,7 +61,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t mt-10 pt-6 text-center text-sm text-gray-600">
         <p>Phone: +91 63768 50258</p>
-        <p className="mt-2">© {new Date().getFullYear()} Phoolchand Saini</p>
+        <p className="mt-2">© {new Date().getFullYear()} Phoolchand Saini - civil engineer</p>
       </footer>
     </main>
   );
