@@ -6,36 +6,55 @@ import { sendServiceRequest } from "@/app/actions/sendServiceRequest";
 export default function ServiceForm() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(formData: FormData) {
     setError("");
+    setLoading(true);
+
     try {
       await sendServiceRequest(formData);
       setSuccess(true);
     } catch {
       setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   }
 
   if (success) {
     return (
-      <p className="text-green-600 font-medium">
-        Your service request has been submitted successfully. I’ll contact you
-        back shortly.
+      <p className="text-center text-green-600 dark:text-green-400 font-medium">
+        Your service request has been submitted. I will contact you soon.
       </p>
     );
   }
 
   return (
-    <form action={handleSubmit} className="space-y-4 max-w-lg">
+    <form action={handleSubmit} className="space-y-4">
       <input
         name="fullName"
-        required
         placeholder="Full Name"
-        className="w-full p-3 border rounded-md"
+        required
+        className="
+          w-full px-4 py-3 rounded-md border
+          bg-white text-gray-900 border-gray-300
+          dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600
+          placeholder-gray-500 dark:placeholder-gray-400
+          focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white
+        "
       />
 
-      <select name="service" required className="w-full p-3 border rounded-md">
+      <select
+        name="service"
+        required
+        className="
+          w-full px-4 py-3 rounded-md border
+          bg-white text-gray-900 border-gray-300
+          dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600
+          focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white
+        "
+      >
         <option value="">Select Service</option>
         <option>All Civil Consultancy</option>
         <option>All Civil Repairing</option>
@@ -50,30 +69,48 @@ export default function ServiceForm() {
 
       <textarea
         name="address"
-        required
         placeholder="Address"
-        className="w-full p-3 border rounded-md"
+        required
+        rows={3}
+        className="
+          w-full px-4 py-3 rounded-md border
+          bg-white text-gray-900 border-gray-300
+          dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600
+          placeholder-gray-500 dark:placeholder-gray-400
+          focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white
+        "
       />
 
       <input
         name="mobile"
-        type="tel"
-        required
         placeholder="Mobile Number"
-        className="w-full p-3 border rounded-md"
+        required
+        className="
+          w-full px-4 py-3 rounded-md border
+          bg-white text-gray-900 border-gray-300
+          dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600
+          placeholder-gray-500 dark:placeholder-gray-400
+          focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white
+        "
       />
 
-      {error && <p className="text-red-600 text-sm">{error}</p>}
+      {error && (
+        <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+      )}
 
       <button
         type="submit"
+        disabled={loading}
         className="
           bg-black text-white px-6 py-3 rounded-md
-          transition-transform duration-150 ease-out
+          transition-all duration-150
+          hover:bg-gray-900
           active:scale-95
+          disabled:opacity-50 disabled:cursor-not-allowed
+          dark:bg-white dark:text-black dark:hover:bg-gray-200
         "
       >
-        Submit Request
+        {loading ? "Submitting..." : "Submit Request"}
       </button>
     </form>
   );
