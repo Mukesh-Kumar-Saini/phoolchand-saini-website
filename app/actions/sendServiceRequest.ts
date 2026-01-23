@@ -22,7 +22,16 @@ export async function sendServiceRequest(formData: FormData) {
     },
   });
 
-  const submissionTime = new Date().toLocaleString();
+  // ✅ Indian date & time (IST)
+  const submissionTime = new Date().toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
 
   await transporter.sendMail({
     from: `"Website Lead" <${process.env.GMAIL_USER}>`,
