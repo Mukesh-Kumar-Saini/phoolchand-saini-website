@@ -20,7 +20,8 @@ export default function ServiceForm() {
   if (success) {
     return (
       <p className="text-green-600 font-medium">
-        Thank you. Your service request has been sent successfully.
+        Your service request has been submitted successfully. I’ll contact you
+        back shortly.
       </p>
     );
   }
@@ -34,11 +35,7 @@ export default function ServiceForm() {
         className="w-full p-3 border rounded-md"
       />
 
-      <select
-        name="service"
-        required
-        className="w-full p-3 border rounded-md"
-      >
+      <select name="service" required className="w-full p-3 border rounded-md">
         <option value="">Select Service</option>
         <option>All Civil Consultancy</option>
         <option>All Civil Repairing</option>
@@ -70,7 +67,11 @@ export default function ServiceForm() {
 
       <button
         type="submit"
-        className="bg-black text-white px-6 py-3 rounded-md"
+        className="
+          bg-black text-white px-6 py-3 rounded-md
+          transition-transform duration-150 ease-out
+          active:scale-95
+        "
       >
         Submit Request
       </button>
